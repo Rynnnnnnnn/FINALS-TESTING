@@ -3,61 +3,6 @@ require_once 'dbConfig.php';
 require_once 'models.php';
 
 $models = new Models();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    // Handle applicant creation
-    if (isset($_POST['create'])) {
-        $data = [
-            'first_name' => $_POST['first_name'],
-            'last_name' => $_POST['last_name'],
-            'email' => $_POST['email'],
-            'phone_number' => $_POST['phone_number'],
-            'specialization' => $_POST['specialization'],
-            'experience_years' => $_POST['experience_years'],
-            'last_added_by' => $_SESSION['username']
-        ];  
-
-        if (method_exists($models, 'createApplicant')) {
-            $result = $models->createApplicant($data);
-
-            header("Location: ../index.php?message=" . urlencode($result['message']) . "&statusCode=" . $result['statusCode']);
-            exit;
-        } else {
-            die('Error: createApplicant method is not defined in Models class.');
-        }
-    }
-
-    // Handle applicant deletion
-    if (isset($_POST['delete'])) {
-        $id = $_POST['id'];
-        $result = $models->deleteApplicant($id);
-
-        header("Location: ../index.php?message=" . urlencode($result['message']) . "&statusCode=" . $result['statusCode']);
-        exit;
-    }
-
-    // Handle applicant update
-    if (isset($_POST['update'])) {
-        $id = $_POST['id'];
-        $data = [
-            'first_name' => $_POST['first_name'],
-            'last_name' => $_POST['last_name'],
-            'email' => $_POST['email'],
-            'phone_number' => $_POST['phone_number'],
-            'specialization' => $_POST['specialization'],
-            'experience_years' => $_POST['experience_years']
-        ];
-
-        if (method_exists($models, 'updateApplicant')) {
-            $result = $models->updateApplicant($id, $data);
-            echo $result['message'];
-        } else {
-            die('Error: updateApplicant method is not defined in Models class.');
-        }
-    }
-}
-
 if (isset($_POST['registerUserBtn'])) {
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
@@ -80,7 +25,6 @@ if (isset($_POST['registerUserBtn'])) {
 }
 
 
-
 // Handle user logout
 if (isset($_GET['logoutAUser'])) {
     session_start();
@@ -89,8 +33,7 @@ if (isset($_GET['logoutAUser'])) {
     header("Location: ../loginRegister.php"); // Redirect to login page
     exit();
 }
-
-// Handle user login
+ 
 // Handle user login
 if (isset($_POST['loginUserBtn'])) {
     $username = $_POST['username'];
