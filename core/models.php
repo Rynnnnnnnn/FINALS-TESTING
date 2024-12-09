@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'dbConfig.php';
+
 class Models {
     private $conn;
 
@@ -111,6 +112,7 @@ class Models {
         }
         return false;
     }
+
     public function createApplicant($data) {
         $sql = "INSERT INTO applicants (first_name, last_name, email, phone_number, specialization, experience_years, last_added_by) 
                 VALUES (:first_name, :last_name, :email, :phone_number, :specialization, :experience_years, :last_added_by)";
@@ -122,6 +124,7 @@ class Models {
             return ['message' => 'Failed to create applicant: ' . $e->getMessage(), 'statusCode' => 400];
         }
     }
+
     public function getUserDetails($username) {
         $sql = "SELECT * FROM users WHERE username = ?";
         try {
@@ -132,6 +135,5 @@ class Models {
             return false; // Return false if there's an error
         }
     }
-    
 }
 ?>
