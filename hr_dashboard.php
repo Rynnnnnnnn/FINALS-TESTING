@@ -212,6 +212,9 @@ if (isset($_GET['action']) && isset($_GET['application_id'])) {
         </table>
     </section>
 </main>
+<footer>
+    <p>&copy; 2024 FindHire | <a href="logout.php">Logout</a></p>
+</footer>
 
 </body>
 </html>
